@@ -77,20 +77,6 @@ data:
           target_label: __address__
           regex: ([^:]+)(?::\d+)?;(\d+)
           replacement: $1:$2
-    rule_files:
-      - "alert.rules.yml"
-  alert.rules.yml: |-
-    groups:
-      - name: ShellsExecutions
-        rules:
-          - alert: ShellExecutions
-            expr: shell_executions_total > 0
-            for: 30s
-            labels:
-              severity: warning
-            annotations:
-              summary: "A shell was executed"
-              description: "{{ $value }} shells have been executed!"
 ---
 apiVersion: apps/v1
 kind: Deployment

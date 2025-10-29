@@ -32,7 +32,7 @@ You can customize the deployment by editing `infra.bicepparam`:
 ### 2. Create Resource Group
 
 ```bash
-az group create --name rg-kubeconna2025 --location eastus
+az group create --name rg-kubeconna2025 --location southcentralus
 ```
 
 ### 4. Deploy Infrastructure
