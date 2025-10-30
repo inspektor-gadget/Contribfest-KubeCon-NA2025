@@ -11,9 +11,8 @@ param vmName string = 'demo-vm'
 @description('Admin username for the VM')
 param adminUsername string = 'azureuser'
 
-@description('Admin password for the VM')
-@secure()
-param adminPassword string
+// Generate a random password for the VM using deployment ID and resource group
+var adminPassword = '${take(uniqueString(resourceGroup().id, deployment().name, vmName), 10)}Aa1!'
 
 // AKS Cluster - Minimal configuration for demo
 resource aksCluster 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
@@ -184,6 +183,10 @@ resource vm 'Microsoft.Compute/virtualMachines@2023-09-01' = {
     userAssignedIdentities: {
       '${deploymentIdentity.id}': {}
     }
+  }
+  tags: {
+    adminUsername: adminUsername
+    adminPassword: adminPassword
   }
   properties: {
     hardwareProfile: {

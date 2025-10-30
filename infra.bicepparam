@@ -5,4 +5,4 @@ param aksClusterName = 'aks-kubeconna2025'
 param location = 'southcentralus'
 param vmName = 'demo-vm'
 param adminUsername = 'azureuser'
-param adminPassword = '2zzkYz9AWnZ3jiC'
+// adminPassword is now auto-generated in the Bicep template
