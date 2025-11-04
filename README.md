@@ -1,7 +1,7 @@
-# Contribfest: Inspektor Gadget Contribfest: Enhancing the Observability and Security of Your K8s Clusters Through an easy to use Framework
+# Inspektor Gadget Contribfest: Enhancing the Observability and Security of Your K8s Clusters Through an easy to use Framework
 
 Welcome to our contribfest. Please follow this guide to get access to the dev
-enrivonment and the different exercises we have prepared for you.
+environment and the different exercises we have prepared for you.
 
 ## Prerequisites
 
@@ -145,18 +145,7 @@ Now that you have run your first gadget, it's time to explore more advanced use 
 
 ## Exercises
 
-### Exercise 1: Troubleshoot your cluster with Gadgets
-
-TODO: Jose
-
-### Exercise 2: Export metrics to Prometheus / Grafana
-
-TODO: Jose
-
-### Exercise 3: Create your own Gadget
-
-TODO: Jose
-
-### Exercise 4: Contribute to Inspektor Gadget
-
-TODO: Mauricio
+- [Troubleshoot your cluster with Gadgets](./labs/01-troubleshooting/README.md)
+- [Export metrics to Prometheus / Grafana](./labs/02-monitoring/README.md)
+- [Create your own Gadget](./labs/03-creating-your-own-gadget/README.md)
+- [Contribute to Inspektor Gadget](./labs/04-contributing/README.md)
