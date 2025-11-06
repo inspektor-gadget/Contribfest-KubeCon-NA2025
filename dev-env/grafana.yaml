@@ -20,12 +20,16 @@ spec:
           env:
             #- name: GF_PLUGINS_PREINSTALL_SYNC
             #  value: grafana-pyroscope-app
-            - name: GF_AUTH_ANONYMOUS_ENABLED
-              value: "true"
-            - name: GF_AUTH_ANONYMOUS_ORG_ROLE
-              value: Admin
-            - name: GF_AUTH_DISABLE_LOGIN_FORM
-              value: "true"
+            #- name: GF_AUTH_ANONYMOUS_ENABLED
+            #  value: "true"
+            #- name: GF_AUTH_ANONYMOUS_ORG_ROLE
+            #  value: Admin
+            #- name: GF_AUTH_DISABLE_LOGIN_FORM
+            #  value: "true"
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: ig-contribfest-grafana-admin-pass
           volumeMounts:
             - name: grafana-provisioning
               mountPath: /etc/grafana/provisioning
