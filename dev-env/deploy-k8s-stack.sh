@@ -27,4 +27,8 @@ kubectl apply -f prometheus.yaml
 echo "Deploying Grafana..."
 kubectl apply -f grafana.yaml
 
+# Deploy grafana service
+echo "Deploying Grafana service..."
+kubectl apply -f grafana-service.yaml
+
 echo "Deployment completed successfully at $(date)"
