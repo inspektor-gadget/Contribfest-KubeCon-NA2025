@@ -32,11 +32,15 @@ Go to https://experience.cloudlabs.ai/#/odl/b5f301cd-bacb-45d0-b642-2be884f221b6
 to activate your dev environment, use the activation code provided during the
 presentation, fill your information data and click on "Submit"
 
-![alt text](./images/registration1.png)
+<p align="center">
+  <img src="./images/registration1.png" alt="Registration screen">
+</p>
 
 On the next screen, click on "Launch Lab", then wait until it's ready.
 
-![alt text](./images/labloading.png)
+<p align="center">
+  <img src="./images/labloading.png" alt="Lab loading screen">
+</p>
 
 One the lab is ready, it'll log you in the development VM. You can use it
 directly from the browser. This machine is already configured to access the
@@ -62,7 +66,9 @@ the dev VM:
 - LabVM Admin Password
 - LabVM DNS Name
 
-![alt text](./images/vmcreds.png)
+<p align="center">
+  <img src="./images/vmcreds.png" alt="VM credentials in Environment tab">
+</p>
 
 ```bash
 $ ssh azureuser@lab195___.eastus.cloudapp.azure.com
@@ -75,7 +81,9 @@ You need to install the [Azure
 CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) and login using
 the Azure credentials on the Environment tab:
 
-![alt text](./images/azurecreds.png)
+<p align="center">
+  <img src="./images/azurecreds.png" alt="Azure credentials in Environment tab">
+</p>
 
 ```bash
 az login
