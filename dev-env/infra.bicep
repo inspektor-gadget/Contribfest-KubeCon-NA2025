@@ -177,54 +177,54 @@ resource nic 'Microsoft.Network/networkInterfaces@2023-09-01' = {
   }
 }
 
-// Virtual Machine
-resource vm 'Microsoft.Compute/virtualMachines@2023-09-01' = {
-  name: vmName
-  location: location
-  dependsOn: [aksCluster, roleAssignment]
-  identity: {
-    type: 'UserAssigned'
-    userAssignedIdentities: {
-      '${deploymentIdentity.id}': {}
-    }
-  }
-  tags: {
-    adminUsername: adminUsername
-    adminPassword: adminPassword
-  }
-  properties: {
-    hardwareProfile: {
-      vmSize: 'Standard_D8s_v3'
-    }
-    osProfile: {
-      computerName: vmName
-      adminUsername: adminUsername
-      adminPassword: adminPassword
-      customData: base64(loadTextContent('vm-setup.sh'))
-    }
-    storageProfile: {
-      imageReference: {
-        publisher: 'Canonical'
-        offer: '0001-com-ubuntu-server-jammy'
-        sku: '22_04-lts-gen2'
-        version: 'latest'
-      }
-      osDisk: {
-        createOption: 'FromImage'
-        managedDisk: {
-          storageAccountType: 'Premium_LRS'
-        }
-      }
-    }
-    networkProfile: {
-      networkInterfaces: [
-        {
-          id: nic.id
-        }
-      ]
-    }
-  }
-}
+//// Virtual Machine
+//resource vm 'Microsoft.Compute/virtualMachines@2023-09-01' = {
+//  name: vmName
+//  location: location
+//  dependsOn: [aksCluster, roleAssignment]
+//  identity: {
+//    type: 'UserAssigned'
+//    userAssignedIdentities: {
+//      '${deploymentIdentity.id}': {}
+//    }
+//  }
+//  tags: {
+//    adminUsername: adminUsername
+//    adminPassword: adminPassword
+//  }
+//  properties: {
+//    hardwareProfile: {
+//      vmSize: 'Standard_D8s_v3'
+//    }
+//    osProfile: {
+//      computerName: vmName
+//      adminUsername: adminUsername
+//      adminPassword: adminPassword
+//      customData: base64(loadTextContent('vm-setup.sh'))
+//    }
+//    storageProfile: {
+//      imageReference: {
+//        publisher: 'Canonical'
+//        offer: '0001-com-ubuntu-server-jammy'
+//        sku: '22_04-lts-gen2'
+//        version: 'latest'
+//      }
+//      osDisk: {
+//        createOption: 'FromImage'
+//        managedDisk: {
+//          storageAccountType: 'Premium_LRS'
+//        }
+//      }
+//    }
+//    networkProfile: {
+//      networkInterfaces: [
+//        {
+//          id: nic.id
+//        }
+//      ]
+//    }
+//  }
+//}
 
 // Outputs
 @description('The FQDN of the AKS cluster')
@@ -233,14 +233,14 @@ output aksClusterFqdn string = aksCluster.properties.fqdn
 @description('The name of the AKS cluster')
 output aksClusterName string = aksCluster.name
 
-@description('The name of the VM')
-output vmName string = vm.name
+//@description('The name of the //VM')
+//output vmName string = vm.name//
 
-@description('The public IP address of the VM')
-output vmPublicIP string = publicIP.properties.ipAddress
+//@description('The public IP address of the VM')
+//output vmPublicIP string = publicIP.properties.ipAddress
 
-@description('SSH command to connect to the VM')
-output sshCommand string = 'ssh ${adminUsername}@${publicIP.properties.ipAddress}'
+//@description('SSH command to connect to the VM')
+//output sshCommand string = 'ssh ${adminUsername}@${publicIP.properties.ipAddress}'
 
 @description('VM can now access AKS cluster using kubectl')
 output vmKubectlAccess string = 'VM has been configured with kubectl access to AKS cluster. SSH to the VM and use kubectl commands.'
