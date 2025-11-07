@@ -19,10 +19,14 @@ In order to facilitate the exercises, we provide a cloud environment composed
 by:
 - A Kubernetes cluster deployed in Azure Kubernetes Service (AKS) with
   Prometheus and Grafana installed
-- A development VM with all the needed tools installed to interact with the
-  cluster and to create new gadgets
+- A development VM with all the needed tools installed and configured to
+  interact with the cluster and to create new gadgets
 
 ### Activating the Dev Environment
+
+> [!WARNING]
+> It seems to be some issues with Firefox, so please use Chrome or Edge to access
+> the lab.
 
 Go to https://experience.cloudlabs.ai/#/odl/b5f301cd-bacb-45d0-b642-2be884f221b6
 to activate your dev environment, use the activation code provided during the
@@ -34,56 +38,44 @@ On the next screen, click on "Launch Lab", then wait until it's ready.
 
 ![alt text](./images/labloading.png)
 
-One the lab is ready, it'll log you in a Windows VM, we don't use it, instead,
-check on the side panel looking for the Azure portal credentials:
-
-![alt text](./images/azurecreds.png)
-
-These are the credentials you'll use to log into the Azure portal and when using
-`az login`.
-
-### Accessing the dev VM
-
-Login into the [azure portal](https://portal.azure.com/) then click into
-"Virtual Machines"
-
-![alt text](./images/vms.png)
-
-and then click on the `demo-vm`. Write down the IP address from the overview
-tab:
-
-![alt text](./images/vmoverview.png)
-
-and the password from the tags tab:
-
-![alt text](./images/vmpassword.png)
-
-and use them to ssh into the machine:
-
-```bash
-$ ssh azureuser@<IP_ADDRESS>
-azureuser@demo-vm:~$
-```
-
-### Accessing the Kubernetes Cluster
-
-#### From the dev VM
-
-The dev VM has kubectl already configured to access the demo cluster, so you can
-use it directly.
+One the lab is ready, it'll log you in the development VM. You can use it
+directly from the browser. This machine is already configured to access the
+Kubernetes cluster:
 
 ```bash
 $ kubectl get nodes
 NAME                                STATUS   ROLES    AGE   VERSION
-aks-nodepool1-30504426-vmss000000   Ready    <none>   24m   v1.32.7
-aks-nodepool1-30504426-vmss000001   Ready    <none>   24m   v1.32.7
+aks-nodepool1-25038520-vmss000000   Ready    <none>   92m   v1.32.7
+aks-nodepool1-25038520-vmss000001   Ready    <none>   92m   v1.32.7
 ```
 
-#### From your local machine
+### Using your own machine
+
+If you prefer to use your own machine to access the dev VM and/or the Kubernetes
+cluster.
+
+#### Dev VM access
+
+You can use SSH. Click on the "Environment" tab and look for the data to access
+the dev VM:
+- LabVM Admin Username
+- LabVM Admin Password
+- LabVM DNS Name
+
+![alt text](./images/vmcreds.png)
+
+```bash
+$ ssh azureuser@lab195___.eastus.cloudapp.azure.com
+azureuser@lab195___:~$
+```
+
+#### Kubernetes Cluster
 
 You need to install the [Azure
 CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) and login using
-the credentials provided before:
+the Azure credentials on the Environment tab:
+
+![alt text](./images/azurecreds.png)
 
 ```bash
 az login
@@ -152,6 +144,8 @@ Now that you have run your first gadget, it's time to explore more advanced use 
 ## Thanks
 
 Thanks for the whole Inspektor Gadget team for the work on the project, and
-specially to @burak-ok, @mqasimsarfraz and @flyth who prepared a contribfest
-early this year that served as base for this one:
+specially to [@burak-ok](https://github.com/burak-ok/),
+[@mqasimsarfraz](https://github.com/mqasimsarfraz/) and
+[@flyth](https://github.com/flyth/) who prepared a contribfest early this year
+that served as base for this one:
 https://github.com/inspektor-gadget/Contribfest-KubeCon-Europe2025
