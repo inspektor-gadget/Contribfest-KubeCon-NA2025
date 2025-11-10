@@ -326,8 +326,8 @@ kubectl delete ns training
 
 Congratulations! You have learned how to use multiple Inspektor Gadget tools to distinguish between disk performance issues and CPU throttling problems. This methodology is essential for accurate root cause analysis in production environments.
 
-### Next Steps
+## Next Steps
 
-How would it look if the one being throttled was disk instead of CPU? Explore more with Inspektor Gadget!
+How would it look if the one being throttled was disk instead of CPU? We don't know how fast our disk is so we need to profile it over time. To do that, we need to generate some metrics and see how those values change over time. Check the [Monitoring with Prometheus and Grafana lab](../02-monitoring/README.md) to learn how to do that.
 
-We don't know how fast our disk is so we need to profile it over time. To do that, we need to generate some metrics and see how those values change over time. Check the [Monitoring with Prometheus and Grafana lab](../02-monitoring/README.md) to learn how to do that.
+Otherwise, if you want to continue exploring troubleshooting real-time issues with Inspektor Gadget, you can check out other [gadgets](https://inspektor-gadget.io/docs/latest/gadgets/) such as [trace_dns](https://inspektor-gadget.io/docs/latest/gadgets/trace_dns) for DNS issues and [trace_exec](https://inspektor-gadget.io/docs/latest/gadgets/trace_exec) for process execution tracking.
