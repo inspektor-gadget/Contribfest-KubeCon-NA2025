@@ -157,7 +157,7 @@ Let's investigate what's happening during the file save operations.
 Let's run our training job:
 
 ```bash
-kubectl apply -f training-job.yaml
+kubectl apply -f https://raw.githubusercontent.com/inspektor-gadget/Contribfest-KubeCon-NA2025/refs/heads/main/labs/01-troubleshooting/training-job.yaml
 ```
 
 ### Step 2: Verify the pod is running
