@@ -1,0 +1,179 @@
+# kubectl gadget is already there
+kubectl gadget version
+
+# Deploy IG
+wget https://raw.githubusercontent.com/inspektor-gadget/Contribfest-KubeCon-NA2025/refs/heads/main/labs/daemon-config.yaml
+kubectl gadget deploy --daemon-config daemon-config.yaml
+
+# Check installation
+kubectl gadget version
+
+# Run first gadget
+kubectl gadget run trace_exec
+
+# Run workload for trace_exec
+kubectl run --restart=Never --image=busybox myapp1-pod --labels="name=myapp1-pod,myapp=app-one,role=demo" -- sh -c 'while /bin/true ; do date ; cat /proc/version ; /bin/sleep 1 ; done'
+
+# Lab 1: Run a training job with issues
+kubectl apply -f https://raw.githubusercontent.com/inspektor-gadget/Contribfest-KubeCon-NA2025/refs/heads/main/labs/01-troubleshooting/training-job.yaml
+
+# Monitor fs operations (https://inspektor-gadget.io/docs/latest/gadgets/trace_fsslower)
+kubectl gadget run trace_fsslower:v0.46.0 --namespace training --min 0 --fields k8s.podName,proc.comm,op,file,delta_us
+
+# Monitor block I/O (https://inspektor-gadget.io/docs/latest/gadgets/profile_blockio/)
+kubectl gadget run profile_blockio:v0.46.0 --namespace training --timeout 30
+
+# Lab 2: Monitor block I/O with Prometheus metrics
+wget https://raw.githubusercontent.com/inspektor-gadget/Contribfest-KubeCon-NA2025/refs/heads/main/labs/02-monitoring/blockio-metrics.yaml
+cat blockio-metrics.yaml
+kubectl gadget run -f blockio-metrics.yaml --detach
+
+# Prepare dashboard
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sum by (le, node) (latency__s_bucket{otel_scope_name=\"blockio-metrics-with-nodeinfo\", node=~\"$node\"})",
+          "format": "heatmap",
+          "fullMetaSearch": false,
+          "includeNullMetadata": false,
+          "legendFormat": "{{node}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Latency per Node (Histogram)",
+      "type": "histogram"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "name": "node",
+        "label": "Node",
+        "includeAll": true,
+        "multi": true,
+        "refresh": 1,
+        "datasource": "${DS_PROMETHEUS}",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(latency__s_bucket{otel_scope_name=\"blockio-metrics-with-nodeinfo\"}, node)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "definition": "label_values(latency__s_bucket{otel_scope_name=\"blockio-metrics-with-nodeinfo\"}, node)"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Latency per Node Dashboard",
+  "uid": "behsa6ehpu7sw2",
+  "version": 2
+}
