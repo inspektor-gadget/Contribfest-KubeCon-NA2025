@@ -3,16 +3,6 @@
 Welcome to our contribfest. Please follow this guide to get access to the dev
 environment and the different exercises we have prepared for you.
 
-## Prerequisites
-
-We provide a cloud environment with everything installed. However, you can run
-it on your local machine by installing the following tools:
-- ssh client (to access the dev VM)
-- [az CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-- [kubectl
-  gadget](https://inspektor-gadget.io/docs/latest/quick-start/#long-running-deployment-on-all-worker-nodes)
-
 ## Dev environment
 
 In order to facilitate the exercises, we provide a cloud environment composed
@@ -56,7 +46,13 @@ aks-nodepool1-25038520-vmss000001   Ready    <none>   92m   v1.32.7
 ### Using your own machine
 
 If you prefer to use your own machine to access the dev VM and/or the Kubernetes
-cluster.
+cluster you'll need the following tools:
+
+- ssh client (to access the dev VM)
+- [az CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [kubectl
+  gadget](https://inspektor-gadget.io/docs/latest/quick-start/#long-running-deployment-on-all-worker-nodes)
 
 #### Access the Dev VM from your own machine
 
