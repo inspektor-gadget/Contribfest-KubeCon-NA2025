@@ -94,7 +94,7 @@ using `kubectl gadget list` and remove gadget instances by calling `kubectl gadg
 
 ## Viewing the metrics inside of Grafana
 
-We have prepared a Prometheus + Grafana stack to visualize the collected metrics. The Prometheus is already
+We have prepared a Prometheus + Grafana stack to visualize the collected metrics. Prometheus is already
 configured to scrape the metrics exported by Inspektor Gadget and Grafana is already configured to use that Prometheus as a data source.
 
 To access Grafana, we need to get the Grafana's service's external IP:
@@ -436,3 +436,13 @@ This query sums up the `latency__s_bucket` metrics, grouping them by both the `l
 With this setup, you can now visualize the block I/O latency distribution per node in your Kubernetes cluster using Inspektor Gadget, Prometheus, and Grafana!
 
 ![alt text](img/pernode_latency.png)
+
+## Next Steps
+
+Congrats, you've finished the second track of our contribfest. There are few different options to continue:
+- Check the [third](../03-creating-your-own-gadget/README.md) track where you
+  will create your own gadget.
+- Try other gadgets that export metrics, like
+  [`profile_tcprtt`](https://inspektor-gadget.io/docs/latest/gadgets/profile_tcprtt)
+  or [`top_file`](https://inspektor-gadget.io/docs/latest/gadgets/top_file),
+  etc.
